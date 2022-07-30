@@ -7,6 +7,12 @@ spec:
     app: istio-ingressgateway
   servers:
   - port:
+      number: 27017
+      name: mongodb
+      protocol: TCP
+    hosts:
+    - mongodb.mongo-express
+  - port:
       number: 80
       name: http
       protocol: HTTP
