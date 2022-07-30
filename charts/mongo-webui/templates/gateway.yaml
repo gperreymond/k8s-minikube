@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
-  name: gateway-whoami
+  name: mongo-webui
 spec:
   selector:
     app: istio-ingressgateway
@@ -11,7 +11,8 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - whoami.docker.localhost
+    - mongo01.docker.localhost
+    - mongo02.docker.localhost
     tls:
       httpsRedirect: true # sends 301 redirect for http requests
   - port:
@@ -19,7 +20,8 @@ spec:
       name: https-443
       protocol: HTTPS
     hosts:
-    - whoami.docker.localhost
+    - mongo01.docker.localhost
+    - mongo02.docker.localhost
     tls:
       mode: SIMPLE # enables HTTPS on this port
       serverCertificate: /etc/certs/servercert.pem
