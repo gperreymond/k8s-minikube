@@ -1,6 +1,9 @@
 apiVersion: v2
-name: cluster-istio-gateways
+name: mongo-webui
 type: application
 version: 1.0.0
 
-# dependencies:
+dependencies:
+- name: mongo-express
+  version: 2.6.6
+  repository: https://cowboysysop.github.io/charts/
