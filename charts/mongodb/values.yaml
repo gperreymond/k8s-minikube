@@ -1,3 +1,5 @@
 mongodb:
   auth:
     enabled: false
+  podSecurityContext:
+    enabled: false
