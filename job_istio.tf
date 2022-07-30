@@ -86,9 +86,9 @@ resource "argocd_application" "istio-base" {
   ]
 }
 
-resource "argocd_application" "istio_ingressgateway" {
+resource "argocd_application" "istio_gateway" {
   metadata {
-    name      = "cluster-istio-ingressgateway"
+    name      = "cluster-istio-gateway"
     namespace = "argocd"
   }
 
@@ -185,6 +185,50 @@ resource "argocd_application" "istiod" {
         "/webhooks/8/clientConfig/caBundle",
         "/webhooks/9/clientConfig/caBundle"
       ]
+    }
+
+    destination {
+      server    = "https://kubernetes.default.svc"
+      namespace = "istio-system"
+    }
+  }
+
+  depends_on = [
+    kubernetes_namespace.argocd,
+    kubernetes_namespace.istio
+  ]
+}
+
+resource "argocd_application" "istio-gateways" {
+  metadata {
+    name      = "cluster-istio-gateways"
+    namespace = "argocd"
+  }
+
+  wait = false
+
+  spec {
+    project = "cluster-istio"
+    source {
+      repo_url        = "https://github.com/gperreymond/k8s-minikube"
+      path            = "charts/cluster-istio/gateways"
+      target_revision = "main"
+    }
+
+    sync_policy {
+      automated = {
+        prune       = true
+        self_heal   = true
+        allow_empty = false
+      }
+      retry {
+        limit = "5"
+        backoff = {
+          duration     = "30s"
+          max_duration = "2m"
+          factor       = "2"
+        }
+      }
     }
 
     destination {
