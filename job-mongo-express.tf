@@ -5,6 +5,9 @@
 resource "kubernetes_namespace" "mongo-express" {
   metadata {
     name = "mongo-express"
+    labels = {
+      istio-injection = "enabled"
+    }
   }
 }
 
@@ -41,7 +44,7 @@ resource "argocd_application" "mongo-express" {
 
     destination {
       server    = "https://kubernetes.default.svc"
-      namespace = "istio-system"
+      namespace = "mongo-express"
     }
   }
 

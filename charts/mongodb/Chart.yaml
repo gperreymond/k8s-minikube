@@ -4,6 +4,6 @@ type: application
 version: 1.0.0
 
 dependencies:
-- name: mongo-express
-  version: 2.6.6
-  repository: https://cowboysysop.github.io/charts/
+- name: mongodb
+  version: 12.1.30
+  repository: https://charts.bitnami.com/bitnami
