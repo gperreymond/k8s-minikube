@@ -1,16 +1,16 @@
 # -----------------------------------------------------
-# INSTALL MONGO WEBUI
+# INSTALL MONGO EXPRESS
 # -----------------------------------------------------
 
-resource "kubernetes_namespace" "mongo-webui" {
+resource "kubernetes_namespace" "mongo-express" {
   metadata {
-    name = "mongo-webui"
+    name = "mongo-express"
   }
 }
 
-resource "argocd_application" "mongo-webui" {
+resource "argocd_application" "mongo-express" {
   metadata {
-    name      = "mongo-webui"
+    name      = "mongo-express"
     namespace = "argocd"
   }
 
@@ -19,7 +19,7 @@ resource "argocd_application" "mongo-webui" {
   spec {
     source {
       repo_url        = "https://github.com/gperreymond/k8s-minikube"
-      path            = "charts/mongo-webui"
+      path            = "charts/mongo-express"
       target_revision = "main"
     }
 
@@ -47,6 +47,6 @@ resource "argocd_application" "mongo-webui" {
 
   depends_on = [
     kubernetes_namespace.argocd,
-    kubernetes_namespace.mongo-webui
+    kubernetes_namespace.mongo-express
   ]
 }
