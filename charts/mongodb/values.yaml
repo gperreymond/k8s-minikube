@@ -3,3 +3,5 @@ mongodb:
     enabled: false
   podSecurityContext:
     enabled: false
+  containerSecurityContext:
+    enabled: false
