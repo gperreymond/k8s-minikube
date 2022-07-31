@@ -6,6 +6,10 @@ resource "kubernetes_namespace" "istio" {
   metadata {
     name = "istio-system"
   }
+
+  depends_on = [
+    kubectl_manifest.argocd
+  ]
 }
 
 resource "argocd_project" "istio" {
@@ -31,7 +35,6 @@ resource "argocd_project" "istio" {
   }
 
   depends_on = [
-    kubernetes_namespace.argocd,
     kubernetes_namespace.istio
   ]
 }
@@ -81,8 +84,7 @@ resource "argocd_application" "istio-base" {
   }
 
   depends_on = [
-    kubernetes_namespace.argocd,
-    kubernetes_namespace.istio
+    argocd_project.istio
   ]
 }
 
@@ -133,8 +135,7 @@ EOT
   }
 
   depends_on = [
-    kubernetes_namespace.argocd,
-    kubernetes_namespace.istio
+    argocd_project.istio
   ]
 }
 
@@ -194,7 +195,6 @@ resource "argocd_application" "istiod" {
   }
 
   depends_on = [
-    kubernetes_namespace.argocd,
-    kubernetes_namespace.istio
+    argocd_project.istio
   ]
 }

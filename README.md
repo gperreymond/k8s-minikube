@@ -2,7 +2,7 @@
 # prepare
 $ ./install-dependencies.sh
 # start
-$ ./bin/minikube start --nodes 3 -p multinodes
+$ ./bin/minikube start --nodes 2 -p multinodes
 $ ./bin/minikube addons enable metallb -p multinodes
 $ ./bin/minikube ip -p multinodes
 $ ./bin/minikube addons configure metallb -p multinodes

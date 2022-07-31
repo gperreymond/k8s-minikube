@@ -9,6 +9,10 @@ resource "kubernetes_namespace" "mongodb-01" {
       istio-injection = "enabled"
     }
   }
+
+  depends_on = [
+    kubectl_manifest.argocd
+  ]
 }
 
 resource "argocd_application" "mongodb-01" {
@@ -49,7 +53,6 @@ resource "argocd_application" "mongodb-01" {
   }
 
   depends_on = [
-    kubernetes_namespace.argocd,
     kubernetes_namespace.mongodb-01
   ]
 }
@@ -65,6 +68,10 @@ resource "kubernetes_namespace" "mongodb-02" {
       istio-injection = "enabled"
     }
   }
+
+  depends_on = [
+    kubectl_manifest.argocd
+  ]
 }
 
 resource "argocd_application" "mongodb-02" {
@@ -105,7 +112,6 @@ resource "argocd_application" "mongodb-02" {
   }
 
   depends_on = [
-    kubernetes_namespace.argocd,
     kubernetes_namespace.mongodb-02
   ]
 }

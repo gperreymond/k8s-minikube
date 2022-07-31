@@ -3,7 +3,7 @@
 # -----------------------------------------------------
 
 data "http" "argocd" {
-  url = "https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.8/manifests/ha/install.yaml"
+  url = "https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.8/manifests/install.yaml"
 }
 
 resource "kubernetes_namespace" "argocd" {

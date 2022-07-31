@@ -9,6 +9,10 @@ resource "kubernetes_namespace" "mongo-express" {
       istio-injection = "enabled"
     }
   }
+
+  depends_on = [
+    kubectl_manifest.argocd
+  ]
 }
 
 resource "argocd_application" "mongo-express" {
@@ -49,7 +53,6 @@ resource "argocd_application" "mongo-express" {
   }
 
   depends_on = [
-    kubernetes_namespace.argocd,
     kubernetes_namespace.mongo-express
   ]
 }
